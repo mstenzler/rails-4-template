@@ -1,0 +1,80 @@
+<% provide(:title, 'Edit user') %>
+<h1>Update your profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <div class="row">
+    	Avatar:
+    	<% if @user.avatar_type.blank? || @user.avatar_type == User::NO_AVATAR %>
+    	 NONE
+    	<% else %>
+      	<%= render 'shared/avatar', size: :medium, user: @user %>
+      <% end %>
+      <%= link_to "Change Avatar", edit_user_avatar_path %>
+
+     <% #  <a href="http://gravatar.com/emails" target="_blank">change</a> %>
+    </div>
+
+	  <% if @user.use_username? %>
+	    <div class="row">
+  		  Username:  <%= @user.username %> - <%= link_to "Change Username", edit_username_path %>
+  		</div>
+	  <% end %>
+
+    <div class="row">
+	    Email: <%= @user.email%> -  <%= link_to "Change Email", edit_user_email_path %>
+	  </div>
+
+    <% if @user.use_geo_area? %>
+      <div class="row">
+        Location:  <%= @user.display_location %> - <%= link_to "Change Location", edit_user_location_path %>
+      </div>
+    <% end %>
+
+    <div class="row">
+    	<% if @user.has_local_authentication? %>
+  	    Password: XXXXX - <%= link_to "Reset Password", new_password_reset_path %>
+  	  <% else %>
+        Local password not set. <%= link_to "Set Password", 
+        new_password_reset_path(type: "new") %>
+  	  <% end %>
+	  </div>
+
+	  <% if User::HAS_USER_EDIT_FIELDS %>
+	     <hr/>
+      <%= bootstrap_form_for(@user) do |f| %>
+        <%= render 'shared/error_messages', target: @user %>
+
+		    <% if @user.use_name? %>
+			      <%= f.text_field :name %>
+		    <% end %>
+
+  		  <% if @user.use_gender? %>
+			    <%= f.collection_select( :gender, User::VALID_GENDERS, :to_s, :to_s, {}, { :class => "auto-width" }) %>
+  		  <% end %>
+
+		    <% if @user.use_birthdate? %>
+			    <%= f.date_select :birthdate,
+		                    {  :start_year => 1910,
+		                      :end_year => User::CURRENT_YEAR,
+		                    },
+		                    {
+		                    :class => "small"
+		                    }
+		      %>
+		      <%= f.collection_select( :age_display_type, User::AGE_DISPLAY_TYPES, :to_s, :to_s, {}, { :class => "auto-width" }) %>
+  		  <% end %>
+
+ 			  <% if @user.use_time_zone? %>
+				  <div class="form-group">
+			      <%= f.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones, {}, { class: "form-control auto-width", id: "time-zone-select" } )%>
+			    </div>
+			  <% end %>
+
+        <%= f.submit "Save changes", class: "btn btn-lg btn-primary" %>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

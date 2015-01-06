@@ -1,0 +1,7 @@
+<div class="user-avatar">
+  <% size ||= nil %>
+	<% if (!user.nil? && user_avatar_url = user.avatar_url(size)) %>
+	  <% html_class ||= "avatar-image" %>
+    <%= image_tag(user_avatar_url, alt: user.name, class: html_class) %> 
+	<% end %>
+</div>

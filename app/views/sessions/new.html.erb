@@ -1,0 +1,31 @@
+<% provide(:title, "Sign in") %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h2>Sign in with a social network:</h2>
+    <a href="/auth/meetup" class="auth_provider">
+      <%= image_tag "meetup_128.png", :size => "128x128" %>
+    </a>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h2>Sign in with your email address:</h2>
+    <%= bootstrap_form_for(@signin_form, url: sessions_path) do |f| %>
+      <%= render 'shared/error_messages', target: @signin_form  %>
+      <%= f.text_field :user_id, label: SigninForm::USER_ID_LABEL %> 
+      <%= f.password_field :password %>
+      <p><%= link_to "forgotten password?", new_password_reset_path %></p>
+      <%= f.form_group do %>
+        <%= f.check_box :remember_me, :class => "auto-width"%>
+      <% end %>
+
+      <%= f.submit "Sign in", class: "btn btn-lg btn-primary" %>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+</div>

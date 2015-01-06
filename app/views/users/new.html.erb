@@ -1,0 +1,59 @@
+<% provide(:title, 'Sign up') %>
+<h1>Sign up</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= bootstrap_form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', target: @user %>
+
+		  <% if @user.use_name? %>
+		    <%= f.text_field :name %>
+		  <% end %>
+
+		  <% if @user.use_username? %>
+			    <%= f.text_field :username %>
+		  <% end %>
+
+			<%= f.text_field :email %>
+
+			<% if @user.password_required? %>
+  			<%= f.password_field :password %>
+	  	  <%= f.password_field :password_confirmation %>
+	  	<% end %>
+
+		  <% if @user.use_gender? %>
+			    <%= f.collection_select( :gender, User::VALID_GENDERS, :to_s, :to_s, {}, { :class => "auto-width" }) %>
+		  <% end %>
+
+		 <% if @user.use_birthdate? %>
+			     <%= f.date_select :birthdate,
+		                    {  :start_year => 1910,
+		                      :end_year => User::CURRENT_YEAR,
+		                    },
+		                    {
+		                    :class => "small"
+		                    }
+		       %>
+
+			    <%= f.collection_select( :age_display_type, User::AGE_DISPLAY_TYPES, :to_s, :to_s, {}, { :class => "auto-width" }) %>
+		  <% end %>
+
+      <% if @user.use_country? %>
+        <%= f.collection_select :geo_country_id, @countries, :id, :country_name, {:label => "Country", :prompt => "-- Select a country --"}, { :class => 'auto-width' }  -%>
+      <% end %>
+
+		 <% if @user.use_zip_code? %>
+
+       <%= f.text_field :zip_code, {:class=>"auto-width", :size=>"10"} %>
+     <% end %>
+
+		 <% if @user.use_time_zone? %>
+			  <div class="form-group">
+		      <%= f.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones, {}, { class: "form-control auto-width", id: "time-zone-select" } )%>
+		    </div>
+		  <% end %>
+
+      <%= f.submit "Create my account", class: "btn btn-lg btn-primary" %>
+    <% end %>
+  </div>
+</div>

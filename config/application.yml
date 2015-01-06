@@ -1,0 +1,42 @@
+title: Rails 4 Template
+display_name: Rails 4 Template
+min_age: 
+max_age: 
+omniauth_providers: ['meetup', 'twitter', 'facebook', 'google_apps']
+user_form_options: ['name?', 'username?', 'gender?', 'birthdate?', 'time_zone?', 'country?', 'zip_code?', 'geo_area?']
+enable_name?: true
+require_name?: true
+enable_username?: true
+require_username?: true
+enable_gender?: true
+require_gender?: true
+enable_birthdate?: true
+require_birthdate?: true
+enable_time_zone?: true
+require_time_zone?: true
+enable_country?: true
+require_country?: true
+enable_zip_code?: true
+require_zip_code?: true
+enable_geo_area?: true
+require_geo_area?: true
+verify_email?: true
+user_name_field: email
+user_identity_field: username
+check_remember_me?: true
+use_avatar_gender_default?: true
+password_reset_ttl_hours: 4
+original_avatar_size: [400, 400]
+large_avatar_size: [200, 200]
+medium_avatar_size: [100, 100]
+small_avatar_size: [60, 60]
+tiny__avatar_size: [30, 30]
+default_country: US
+default_time_zone: "Eastern Time (US & Canada)"
+default_remember_me: false
+development:
+  host: "localhost:3000"
+test:
+  host: "test.local"
+production:
+  host: "www.ApplicationTemplate.com"

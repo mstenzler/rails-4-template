@@ -1,0 +1,20 @@
+--- 
+- !ruby/object:EventType
+  name: Event
+  title: Regular Event
+  tag: event
+  is_default: true
+  rank: 1 
+- !ruby/object:EventType
+  name: FullRemoteEvent
+  title: Full Remote Event
+  tag: remote
+  is_default: false
+  rank: 2
+- !ruby/object:EventType
+  name: RsvpRemoteEvent
+  title: Event with remote RSVP list
+  tag: rsvp
+  is_default: false
+  rank: 3
+

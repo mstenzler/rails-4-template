@@ -1,0 +1,17 @@
+<% provide(:title, 'Edit User Location') %>
+<h1>Edit User Licaton</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= bootstrap_form_for(@user_location_form, url: user_location_path, method: :post) do |f| %>
+      <%= render 'shared/error_messages', target: @user_location_form  %>
+
+      <%= f.collection_select :geo_country_id, @countries, :id, :country_name, {:prompt => "-- Select a country --"}, { :class => 'auto-width' }  -%>
+
+      <%= f.text_field :zip_code, {:class=>"auto-width", :size=>"10"} %>
+    
+      <%= f.submit "Edit", class: "btn btn-lg btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
